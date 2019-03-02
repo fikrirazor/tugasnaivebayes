@@ -22,22 +22,34 @@ jumlahlebih50k=0
 jumlahkurang50k=0
 for i in range(p):
     if(y_train[i]=='>50K'):
-        jumlahlebih50k=jumlahlebih50k+1
+        jumlahlebih50k+=1
     else:
-        jumlahkurang50k=jumlahkurang50k+1
+        jumlahkurang50k+=1
     plebih50k=jumlahlebih50k/p
     pkurang50k=jumlahkurang50k/p
 
 adultl50k=0
 oldl50k=0
 youngl50k=0
+adultk50k=0
+oldk50k=0
+youngk50k=0
 for i in range(p):
     if(x_train[i,0]=="adult" and y_train[i]=='>50K'):
-        adultl50k=adultl50k+1
+        adultl50k+=1
     elif(x_train[i,0]=="old" and y_train[i]=='>50K'):
-        oldl50k=oldl50k+1
+        oldl50k+=1
     elif(x_train[i,0]=="young" and y_train[i]=='>50K'):
-        youngl50k=youngl50k+1
-
+        youngl50k+=1
+    elif(x_train[i,0]=="adult" and y_train[i]=='<=50K'):
+        adultk50k+=1
+    elif(x_train[i,0]=="old" and y_train[i]=='<=50K'):
+        oldk50k+=1
+    elif(x_train[i,0]=="young" and y_train[i]=='<=50K'):
+        youngk50k+=1
 adultl50k=adultl50k/jumlahlebih50k
-    
+oldl50k=oldl50k/jumlahlebih50k
+youngl50k=youngl50k/jumlahlebih50k
+adultk50k=adultk50k/jumlahkurang50k
+oldk50k=oldk50k/jumlahkurang50k
+youngk50k=youngk50k/jumlahkurang50k
