@@ -11,8 +11,6 @@ import pandas as pd
 
 Train = r'data/TrainsetTugas1ML.csv' #initialization of file
 dn = pd.read_csv(Train) #read dataset
-#conditional probability
-#usia=dn.groupby("age").income.value_counts()
 us=dn.groupby('age')['income']
 agetes=us.value_counts()/us.count()
 def conprob(pd1,pd2,transpose=1):
@@ -22,8 +20,8 @@ def conprob(pd1,pd2,transpose=1):
         table=pd.crosstab(pd2,pd1)
     cnames=table.columns.values
     weights=1/table[cnames].sum()
-    out=table*weights #tanpa smoothing
-    #out=(table+1)*(weights+(table*1)) #Menggunakan smoothing 
+    #out=table*weights #tanpa smoothing
+    out=(table+1)*(weights+3) #Menggunakan add one smoothing 
     #pc=table[cnames].sum()/table[cnames].sum().sum()
     table=table.transpose()
     cnames=table.columns.values
@@ -32,10 +30,8 @@ def conprob(pd1,pd2,transpose=1):
     return out
 
 
-#probability of income
-pi=dn.income.value_counts()/dn.income.count()
-#conditional probability
-#idd=conprob(dn.id,dn.income)
+#pi=(dn.income.value_counts())/(dn.income.count()) 
+pi=(dn.income.value_counts()+1)/(dn.income.count()+2) #add one smoothing
 ae=conprob(dn.income,dn.age).T
 wr=conprob(dn.income,dn.workclass).T
 ed=conprob(dn.income,dn.education).T
