@@ -20,8 +20,8 @@ def conprob(pd1,pd2,transpose=1):
         table=pd.crosstab(pd2,pd1)
     cnames=table.columns.values
     weights=1/table[cnames].sum()
-    #out=table*weights #tanpa smoothing
-    out=(table+1)*(weights+3) #Menggunakan add one smoothing 
+    out=table*weights #tanpa smoothing
+    #out=(table+1)*(weights+3) #Menggunakan add one smoothing 
     #pc=table[cnames].sum()/table[cnames].sum().sum()
     table=table.transpose()
     cnames=table.columns.values
@@ -30,8 +30,8 @@ def conprob(pd1,pd2,transpose=1):
     return out
 
 
-#pi=(dn.income.value_counts())/(dn.income.count()) 
-pi=(dn.income.value_counts()+1)/(dn.income.count()+2) #add one smoothing
+pi=(dn.income.value_counts())/(dn.income.count()) 
+#pi=(dn.income.value_counts()+1)/(dn.income.count()+2) #add one smoothing
 ae=conprob(dn.income,dn.age).T
 wr=conprob(dn.income,dn.workclass).T
 ed=conprob(dn.income,dn.education).T
@@ -70,10 +70,6 @@ for i in range(panjang):
     kurang50.append(age[i,0]*workclass[i,0]*education[i,0]*marital[i,0]*occup[i,0]*rela[i,0]*hour[i,0]*pi['<=50K'])
     lebih50.append(age[i,1]*workclass[i,1]*education[i,1]*marital[i,1]*occup[i,1]*rela[i,1]*hour[i,1]*pi['>50K'])
 
-
-kurantes= age[4,0]*workclass[4,0]*education[4,0]*marital[4,0]*occup[4,0]*rela[4,0]*hour[4,0]*pi['<=50K']    
-lebihtes=age[4,1]*workclass[4,1]*education[4,1]*marital[4,1]*occup[4,1]*rela[4,1]*hour[4,1]*pi['>50K']
-
 income=[]
 panjang2=len(lebih50)
 for i in range(panjang2):
@@ -89,4 +85,8 @@ acc=confusion_matrix(ylearn[:40], ytest[:40])
 from sklearn.metrics import accuracy_score
 acc2=accuracy_score(ylearn[:40], ytest[:40])*100
 print("Akurasi = ",acc2,"%")
+
+
+#dt.to_csv('TebakanTugas1ML.csv', index=False, header=None)
+
 
