@@ -4,7 +4,7 @@ Created on Thu Feb 28 19:11:44 2019
 
 @author: Rozan
 """
-
+#https://github.com/fikrirazor/tugasnaivebayes
 #import library as helper
 import pandas as pd
 
